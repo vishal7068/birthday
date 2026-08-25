@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff6f9c">
+<title>For the Love of My Life ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root{
+  --pink:#ff6f9c; --rose:#e84a7a; --purple:#8b5cf6;
+  --gold:#f5c76a; --cream:#fff8fb; --dark:#351c2b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Poppins,sans-serif;color:var(--dark);
+  background:linear-gradient(135deg,#fff8fb,#fff0f6 45%,#f7efff);
+  overflow-x:hidden;
+}
+button{font:inherit;cursor:pointer}
+section{padding:90px 7%;position:relative}
+.container{max-width:1150px;margin:auto}
+h2{font-family:"Cormorant Garamond",serif;font-size:clamp(2.4rem,5vw,4rem);text-align:center;margin-bottom:15px}
+.subtitle{text-align:center;color:#795b6a;max-width:700px;margin:0 auto 45px}
+.script{font-family:"Great Vibes",cursive}
+#loader{
+  position:fixed;inset:0;background:#fff4f8;z-index:9999;
+  display:grid;place-items:center;transition:opacity .7s,visibility .7s
+}
+#loader.hide{opacity:0;visibility:hidden}
+.loader-heart{font-size:60px;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.25)}}
+
+/* Background decorations */
+.particle{position:fixed;z-index:-1;pointer-events:none;animation:floatUp linear infinite;opacity:.35}
+@keyframes floatUp{
+  from{transform:translateY(110vh) rotate(0)}
+  to{transform:translateY(-15vh) rotate(360deg)}
+}
+
+/* Landing */
+#landing{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  background:radial-gradient(circle at 50% 40%,#fff 0,#ffe4ef 45%,#eadbff 100%);
+}
+.glow{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:rgba(255,111,156,.18);filter:blur(70px);animation:glow 5s ease-in-out infinite alternate
+}
+@keyframes glow{to{transform:scale(1.25);opacity:.55}}
+.landing-content{position:relative;z-index:2}
+.landing-content .small{font-size:1rem;letter-spacing:3px;text-transform:uppercase;color:#9b5875}
+.landing-content h1{font-family:"Great Vibes",cursive;font-size:clamp(4rem,11vw,8rem);font-weight:400;color:#d83e70;text-shadow:0 8px 30px rgba(216,62,112,.18)}
+.landing-content p{font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,3vw,2rem);margin:10px 0 35px}
+.btn{
+  border:0;border-radius:50px;padding:15px 28px;color:white;
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  box-shadow:0 12px 30px rgba(193,65,120,.28);transition:.3s
+}
+.btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 18px 35px rgba(193,65,120,.38)}
+.scroll-hint{margin-top:50px;opacity:.6;font-size:.85rem;animation:bob 1.5s infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+
+/* Hero */
+.hero{text-align:center;background:rgba(255,255,255,.5)}
+.hero h2{color:#d43e70}
+.hero .message{font-family:"Cormorant Garamond",serif;font-size:1.45rem;line-height:1.8;max-width:800px;margin:0 auto}
+.heart-big{font-size:80px;display:inline-block;animation:pulse 1.5s infinite}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.photo{
+  min-height:280px;border-radius:22px;overflow:hidden;position:relative;
+  background:linear-gradient(135deg,#ffd4e4,#eadcff);
+  box-shadow:0 10px 30px rgba(80,30,60,.12);cursor:pointer
+}
+.photo:nth-child(2),.photo:nth-child(5){min-height:350px}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.5s}
+.photo:hover img{transform:scale(1.06)}
+.photo .caption{
+  position:absolute;bottom:0;left:0;right:0;padding:18px;color:white;
+  background:linear-gradient(transparent,rgba(30,10,20,.8));font-size:.9rem
+}
+.photo.placeholder{display:grid;place-items:center;text-align:center;padding:25px;color:#874e68}
+.photo.placeholder .icon{font-size:45px;margin-bottom:10px}
+
+/* Timeline */
+.timeline{max-width:850px;margin:auto;position:relative}
+.timeline:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(var(--pink),var(--purple));transform:translateX(-50%)}
+.event{width:50%;padding:15px 40px;position:relative;opacity:0;transform:translateY(30px);transition:.7s}
+.event.show{opacity:1;transform:none}
+.event:nth-child(even){margin-left:50%}
+.event:after{content:"❤️";position:absolute;top:20px;right:-13px;background:white;border-radius:50%;padding:3px;font-size:14px}
+.event:nth-child(even):after{left:-13px;right:auto}
+.event-card{background:rgba(255,255,255,.8);padding:22px;border-radius:20px;box-shadow:0 10px 30px rgba(80,30,60,.1)}
+.event-card h3{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:#d43e70}
+.event-card p{font-size:.9rem;line-height:1.7;color:#6d5361}
+
+/* Reasons */
+.reason-box{max-width:700px;margin:auto;text-align:center}
+.reason-card{
+  min-height:180px;background:white;border-radius:28px;padding:35px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 15px 40px rgba(100,30,70,.12);font-family:"Cormorant Garamond",serif;font-size:2rem;
+  transition:.4s
+}
+.reason-card.pop{animation:cardPop .45s}
+@keyframes cardPop{50%{transform:scale(1.04);opacity:.6}}
+
+/* Letter */
+.letter-wrap{max-width:800px;margin:auto}
+.envelope{height:150px;display:grid;place-items:center;margin-bottom:25px}
+.envelope button{font-size:70px;border:0;background:none;transition:.4s}
+.envelope button:hover{transform:scale(1.12) rotate(-4deg)}
+.letter{
+  background:#fffdf8;border:1px solid #efd9a8;padding:45px;
+  border-radius:8px;box-shadow:0 20px 45px rgba(80,50,20,.12);
+  line-height:2;font-family:"Cormorant Garamond",serif;font-size:1.3rem;display:none
+}
+.letter.open{display:block;animation:letterIn .8s}
+@keyframes letterIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* Countdown */
+.countdown{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.time-box{background:white;border-radius:18px;padding:20px;min-width:100px;box-shadow:0 10px 30px rgba(80,30,60,.1)}
+.time-box strong{display:block;font-size:2rem;color:#d43e70}
+.time-box span{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:#80606f}
+
+/* Surprise */
+.surprise{text-align:center;background:linear-gradient(135deg,#fff0f6,#f2eaff)}
+.surprise-message{max-width:700px;margin:35px auto 0;font-family:"Cormorant Garamond",serif;font-size:2rem;display:none}
+.surprise-message.show{display:block;animation:letterIn .8s}
+
+/* Music */
+.music-btn{
+  position:fixed;right:20px;bottom:20px;z-index:1000;width:58px;height:58px;
+  border-radius:50%;border:0;background:linear-gradient(135deg,var(--rose),var(--purple));
+  color:#fff;box-shadow:0 10px 25px rgba(80,30,70,.3)
+}
+
+/* Secret */
+.secret{text-align:center}
+.secret-content{max-width:650px;margin:25px auto;padding:30px;background:white;border-radius:22px;display:none;box-shadow:0 15px 40px rgba(80,30,60,.1)}
+.secret-content.show{display:block;animation:letterIn .8s}
+
+/* Footer */
+footer{text-align:center;padding:60px 20px;background:#2e1b28;color:white}
+footer h2{color:#ffd3e2}
+footer p{opacity:.8}
+.footer-heart{font-size:75px;animation:pulse 1.5s infinite}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(20,8,16,.85);z-index:3000;display:none;align-items:center;justify-content:center;padding:25px}
+.modal.show{display:flex}
+.modal img{max-width:95vw;max-height:85vh;border-radius:18px}
+.close{position:absolute;top:20px;right:25px;color:white;background:none;border:0;font-size:35px}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(35px);transition:.8s}
+.reveal.show{opacity:1;transform:none}
+
+@media(max-width:760px){
+  section{padding:70px 5%}
+  .gallery{grid-template-columns:1fr 1fr}
+  .photo,.photo:nth-child(2),.photo:nth-child(5){min-height:230px}
+  .timeline:before{left:10px}
+  .event,.event:nth-child(even){width:100%;margin-left:0;padding-left:35px;padding-right:0}
+  .event:after,.event:nth-child(even):after{left:0;right:auto}
+  .letter{padding:28px;font-size:1.15rem}
+}
+@media(max-width:450px){
+  .gallery{grid-template-columns:1fr}
+  .photo,.photo:nth-child(2),.photo:nth-child(5){min-height:300px}
+  .time-box{min-width:75px;padding:14px}
+  .time-box strong{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-heart">❤️</div></div>
+
+<!-- =========================================================
+     PERSONALIZATION: CHANGE THESE VALUES
+========================================================= -->
+<script>
+const CONFIG = {
+  wifeName: "My sweet heart my wife",
+  yourName: "Vishal",
+  birthday: "2026-08-26", // CHANGE TO HER BIRTHDAY: YYYY-MM-DDT00:00:00          // Put your MP3 in the same folder
+  loveLetter: `My Love,
+
+Today is a very special day because it is the day you came into this world.
+
+I may not always have the perfect words to explain what you mean to me, but I hope you always know how deeply grateful I am to have you in my life.
+
+Your smile makes my difficult days easier. Your presence makes ordinary moments special. And simply knowing that you are there makes my world feel warmer.
+
+On your birthday, I wish you endless happiness, beautiful dreams, good health, and all the love your heart can hold.
+
+I promise to keep making memories with you, laughing with you, supporting you, and loving you.
+
+Happy Birthday, my love my wife ❤️
+
+Forever yours,
+vishal`,
+  secretMessage: "If I could choose one person to spend every tomorrow with, I would choose you again and again. ❤️"
+};
+</script>
+
+<div id="particles"></div>
+
+<!-- LANDING -->
+<section id="landing">
+  <div class="glow"></div>
+  <div class="landing-content">
+    <div class="small">A little surprise made with love</div>
+    <h1>Happy Birthday,<br>My Love ❤️</h1>
+    <p>To the most beautiful person in my life...</p>
+    <button class="btn" onclick="openSurprise()">Open Your Surprise 🎁</button>
+    <div class="scroll-hint">↓ Scroll to begin our story ↓</div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero reveal" id="home">
+  <div class="container">
+    <div class="heart-big">❤️</div>
+    <h2>Happy Birthday, <span id="wifeNameHero"></span> ❤️</h2>
+    <p class="message">
+      Every moment with you is a beautiful chapter of my life.
+      Today is not just your birthday; it is the day the world was blessed
+      with someone who makes my world complete.
+    </p>
+  </div>
+</section>
+
+<!-- MEMORIES -->
+<section id="memories">
+  <div class="container reveal">
+    <h2>Our Beautiful Memories 📸</h2>
+    <p class="subtitle">Every picture holds a little piece of our story. Replace these placeholders with your favorite photos.</p>
+    <div class="gallery">
+
+      <!-- PHOTO PLACEHOLDERS: Replace src with your image filename -->
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo1.jpg"  onerror="placeholder(this,'❤️','Add Photo 1')">
+        <div class="caption">The day I fell for your smile ❤️</div>
+      </div>
+
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo2.jpg" alt="Our memory" onerror="placeholder(this,'🥰','Add Photo 2')">
+        <div class="caption">One of my favorite memories with you</div>
+      </div>
+
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo3.jpg" alt="Our memory" onerror="placeholder(this,'💕','Add Photo 3')">
+        <div class="caption">Us, being us 🥰</div>
+      </div>
+
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo4.jpg" alt="Our memory" onerror="placeholder(this,'🌹','Add Photo 4')">
+        <div class="caption">A moment I'll always treasure</div>
+      </div>
+
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo5.jpg" alt="Our memory" onerror="placeholder(this,'✨','Add Photo 5')">
+        <div class="caption">Another beautiful chapter of us</div>
+      </div>
+
+      <div class="photo" onclick="openImage(this)">
+        <img src="photo6.jpg" alt="Our memory" onerror="placeholder(this,'💖','Add Photo 6')">
+        <div class="caption">Forever one of my favorites</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container reveal">
+    <h2>Our Story ❤️</h2>
+    <p class="subtitle">Replace these moments with the real chapters of your relationship.</p>
+    <div class="timeline">
+      <div class="event">
+        <div class="event-card">
+          <h3>🌸 The Day We Met</h3>
+          <p>31 December 2022</p>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-card">
+          <h3>💬 Our First Conversation</h3>
+          <p>15 March 2023</p>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-card">
+          <h3>☕ Our First Meet</h3>
+          <p>26 August 2023</p>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-card">
+          <h3>❤️ Our Unoffical Marriage</h3>
+          <p>31 May 2024</p>
+        </div>
+      </div>
+      <div class="event">
+        <div class="event-card">
+          <h3>🎂 Today — Your Birthday</h3>
+          <p>The most beautiful and Special Day of our life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section>
+  <div class="container reveal">
+    <h2>Reasons Why I Love You ❤️</h2>
+    <p class="subtitle">There are more reasons than I could ever fit on one page.</p>
+    <div class="reason-box">
+      <div class="reason-card" id="reasonCard">Your smile ❤️</div>
+      <br>
+      <button class="btn" onclick="nextReason()">Show Me Another Reason 💕</button>
+    </div>
+  </div>
+</section>
+
+<!-- LOVE LETTER -->
+<section>
+  <div class="container reveal">
+    <h2>A Letter For You 💌</h2>
+    <p class="subtitle">Jaan Mujhe pata hai ki hamare relationship main bahut saari problems aayi or sayed orr ayengi but please kabhi bhe ye mt sochna ki mera pyaar apke liye kam hua hai main hamesha aapko pyyar krunga orr saari problems ko hum dono milke solve krr lenge prr sath kabhi nhi chhodnege promise 
+       </p>
+    <div class="letter-wrap">
+      <div class="envelope">
+        <button onclick="openLetter()" aria-label="Open love letter">💌</button>
+      </div>
+      <div class="letter" id="letter"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SURPRISE -->
+<section class="surprise">
+  <div class="container reveal">
+    <h2>One More Surprise... 🎁</h2>
+    <p class="subtitle">Because one surprise is never enough for someone this special.</p>
+    <button class="btn" onclick="specialSurprise()">Click Me ❤️</button>
+    <div class="surprise-message" id="surpriseMessage">
+      No matter how many birthdays we celebrate together, I will always be grateful that I get to celebrate <b>YOU</b>. ❤️
+    </div>
+  </div>
+</section>
+
+<!-- SECRET -->
+<section class="secret">
+  <div class="container reveal">
+    <h2>One Last Little Secret... 👀</h2>
+    <button class="btn" onclick="showSecret()"> There is one more thing... 💕</button>
+    <div class="secret-content" id="secretContent"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-heart">❤️</div>
+  <h2>Happy Birthday, My Love</h2>
+  <p>I hope this little website reminds you of how incredibly special you are to me.</p>
+  <p style="margin-top:20px">Forever Yours ❤️</p>
+  <p id="yourNameFooter" style="font-family:'Great Vibes',cursive;font-size:2.5rem;color:#ffd3e2"></p>
+</footer>
+
+<!-- MUSIC -->
+<audio id="music" loop preload="none"></audio>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Play Our Song">🎵</button>
+
+<!-- IMAGE MODAL -->
+<div class="modal" id="imageModal" onclick="closeImage(event)">
+  <button class="close" onclick="closeModal()">×</button>
+  <img id="modalImage" src="" alt="Memory">
+</div>
+
+<script>
+/* =========================
+   INITIAL SETUP
+========================= */
+document.getElementById("wifeNameHero").textContent = CONFIG.wifeName;
+document.getElementById("yourNameFooter").textContent = CONFIG.yourName;
+document.getElementById("music").src = CONFIG.songFile;
+
+/* Loader */
+window.addEventListener("load",()=>setTimeout(()=>document.getElementById("loader").classList.add("hide"),600));
+
+/* Floating hearts */
+const particles=document.getElementById("particles");
+const symbols=["❤️","💕","✨","🌸","💗","🌹"];
+for(let i=0;i<24;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  p.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+  p.style.left=Math.random()*100+"vw";
+  p.style.fontSize=(12+Math.random()*22)+"px";
+  p.style.animationDuration=(9+Math.random()*13)+"s";
+  p.style.animationDelay=(-Math.random()*15)+"s";
+  particles.appendChild(p);
+}
+
+/* Smoothly enter main page */
+function openSurprise(){
+  document.getElementById("home").scrollIntoView({behavior:"smooth"});
+}
+
+/* Scroll reveal */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      entry.target.querySelectorAll?.(".event").forEach((e,i)=>{
+        setTimeout(()=>e.classList.add("show"),i*180);
+      });
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+/* Gallery placeholders */
+function placeholder(img,icon,text){
+  const box=img.parentElement;
+  img.remove();
+  box.classList.add("placeholder");
+  box.innerHTML=`<div><div class="icon">${icon}</div><b>${text}</b><br><small>Replace the image filename in index.html</small></div>`;
+}
+function openImage(el){
+  const img=el.querySelector("img");
+  if(!img) return;
+  document.getElementById("modalImage").src=img.src;
+  document.getElementById("imageModal").classList.add("show");
+}
+function closeModal(){document.getElementById("imageModal").classList.remove("show")}
+function closeImage(e){if(e.target.id==="imageModal") closeModal()}
+
+/* Reasons */
+const reasons=[
+  "Your smile ❤️",
+  "Your kindness 🌸",
+  "Your beautiful heart 💖",
+  "The way you understand me 🥰",
+  "The way you make ordinary days special ✨",
+  "Your beautiful personality 🌹",
+  "Simply because you are YOU ❤️",
+  "Because life feels better with you 💕",
+  "Because you make my heart feel at home 🏡❤️"
+];
+let reasonIndex=0;
+function nextReason(){
+  reasonIndex=(reasonIndex+1)%reasons.length;
+  const card=document.getElementById("reasonCard");
+  card.classList.remove("pop");
+  void card.offsetWidth;
+  card.textContent=reasons[reasonIndex];
+  card.classList.add("pop");
+}
+
+/* Love letter typewriter */
+function openLetter(){
+  const letter=document.getElementById("letter");
+  letter.classList.add("open");
+  if(letter.dataset.started) return;
+  letter.dataset.started="true";
+  let i=0;
+  const text=CONFIG.loveLetter.replace(/\n/g,"<br>");
+  const raw=CONFIG.loveLetter;
+  letter.innerHTML="";
+  function type(){
+    if(i<raw.length){
+      letter.innerHTML=raw.slice(0,i+1).replace(/\n/g,"<br>");
+      i++;
+      setTimeout(type,18);
+    }
+  }
+  type();
+}
+
+/* Countdown */
+function updateCountdown(){
+  const now=new Date();
+  const target=new Date(CONFIG.birthday);
+  let diff=target-now;
+  if(diff<=0){
+    document.getElementById("countdownTitle").innerHTML="Today Is Your Day! 🎂❤️";
+    document.querySelector("#countdown").innerHTML='<div style="font-family:Great Vibes,cursive;font-size:3rem;color:#d43e70">Happy Birthday, My Love! ❤️</div>';
+    if(!window.confettiDone){window.confettiDone=true;confettiBurst();}
+    return;
+  }
+  const d=Math.floor(diff/86400000); diff%=86400000;
+  const h=Math.floor(diff/3600000); diff%=3600000;
+  const m=Math.floor(diff/60000); diff%=60000;
+  const s=Math.floor(diff/1000);
+  document.getElementById("days").textContent=String(d).padStart(2,"0");
+  document.getElementById("hours").textContent=String(h).padStart(2,"0");
+  document.getElementById("minutes").textContent=String(m).padStart(2,"0");
+  document.getElementById("seconds").textContent=String(s).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+/* Surprise */
+function specialSurprise(){
+  document.getElementById("surpriseMessage").classList.add("show");
+  confettiBurst();
+  for(let i=0;i<20;i++){
+    setTimeout(()=>{
+      const h=document.createElement("div");
+      h.textContent=["❤️","💕","💖","✨"][Math.floor(Math.random()*4)];
+      h.style.position="fixed";h.style.left=(Math.random()*100)+"vw";h.style.top="80vh";
+      h.style.fontSize=(18+Math.random()*25)+"px";h.style.zIndex="2000";
+      h.style.transition="transform 2s,opacity 2s";
+      document.body.appendChild(h);
+      requestAnimationFrame(()=>{h.style.transform=`translateY(-${300+Math.random()*400}px) rotate(${Math.random()*360}deg)`;h.style.opacity=0});
+      setTimeout(()=>h.remove(),2100);
+    },i*70);
+  }
+}
+
+/* Lightweight confetti */
+function confettiBurst(){
+  for(let i=0;i<90;i++){
+    const c=document.createElement("div");
+    c.style.position="fixed";c.style.left="50vw";c.style.top="45vh";c.style.width="8px";c.style.height="12px";
+    c.style.background=["#ff6f9c","#8b5cf6","#f5c76a","#ffffff"][i%4];
+    c.style.zIndex="5000";c.style.pointerEvents="none";
+    c.style.borderRadius="2px";
+    document.body.appendChild(c);
+    const angle=Math.random()*Math.PI*2, distance=100+Math.random()*450;
+    const x=Math.cos(angle)*distance, y=Math.sin(angle)*distance+250;
+    c.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:`translate(${x}px,${y}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1300+Math.random()*900,easing:"cubic-bezier(.2,.8,.3,1)"});
+    setTimeout(()=>c.remove(),2400);
+  }
+}
+
+/* Secret message */
+function showSecret(){
+  const box=document.getElementById("secretContent");
+  box.innerHTML=CONFIG.secretMessage;
+  box.classList.add("show");
+}
+
+/* Music */
+async function toggleMusic(){
+  const music=document.getElementById("music");
+  const btn=document.getElementById("musicBtn");
+  if(music.paused){
+    try{
+      await music.play();
+      btn.textContent="⏸️";
+    }catch(e){
+      alert("Add your MP3 file as 'our-song.mp3' in the same folder as index.html, then click the music button again.");
+    }
+  }else{
+    music.pause();
+    btn.textContent="🎵";
+  }
+}
+</script>
+</body>
+</html>
